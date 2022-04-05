@@ -18,6 +18,5 @@ class DB {
 
 	}
 	$db = new DB();
-
-
+	echo("Works");
 ?> 

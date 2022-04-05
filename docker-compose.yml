@@ -5,6 +5,7 @@ services:
     build: './docker/php'
     volumes:
       - ./src:/var/www/html/
+      - ./work:/home/work/
     ports:
       - 8000:80
   db:
