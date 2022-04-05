@@ -2,7 +2,7 @@ version: '4.6'
 services:
   php-apache-environment:
     container_name: php-apache
-    image: php:8.0-apache
+    build: './docker/php'
     volumes:
       - ./src:/var/www/html/
     ports:
@@ -12,9 +12,18 @@ services:
     image: mysql
     restart: always
     environment:
-        MYSQL_ROOT_PASSWORD: root
-        MYSQL_DATABASE: RANKING
-        MYSQL_USER: user
-        MYSQL_PASSWORD: passwd
+        MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
+        MYSQL_DATABASE: MYSQL_DATABASE
+        MYSQL_USER: MYSQL_USER
+        MYSQL_PASSWORD: MYSQL_PASSWORD
     ports:
         - "9906:3306"
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+        - '8080:80'
+    restart: always
+    environment:
+        PMA_HOST: db
+    depends_on:
+        - db
