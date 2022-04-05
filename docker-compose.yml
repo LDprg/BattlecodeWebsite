@@ -1,0 +1,20 @@
+version: '4.6'
+services:
+  php-apache-environment:
+    container_name: php-apache
+    image: php:8.0-apache
+    volumes:
+      - ./src:/var/www/html/
+    ports:
+      - 8000:80
+  db:
+    container_name: db
+    image: mysql
+    restart: always
+    environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: RANKING
+        MYSQL_USER: user
+        MYSQL_PASSWORD: passwd
+    ports:
+        - "9906:3306"
