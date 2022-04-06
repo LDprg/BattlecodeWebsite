@@ -6,7 +6,6 @@
 		private static $_db_name = "MYSQL_DATABASE";
 		private static $_db;
 
-
 		function __construct() {
 			try {
 			self::$_db = new PDO("mysql:host=" . self::$_db_host . ";dbname=" . self::$_db_name,  self::$_db_username , self::$_db_password);
@@ -18,25 +17,33 @@
 
 		function createUser($name, $passwd, $email)
 		{
-			if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-				return "Email not valid!";
-			}
+			try{
+				if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+					return "Email not valid!";
+				}
 
-			$hash = password_hash($passwd, PASSWORD_DEFAULT);
+				$hash = password_hash($passwd, PASSWORD_DEFAULT);
 
-			$stmt = self::$_db->prepare("INSERT INTO users(NAME, PASSWD, EMAIL) VALUES (:name, :passwd, :email)");
+				$stmt = self::$_db->prepare("INSERT INTO users(NAME, PASSWD, EMAIL) VALUES (:name, :passwd, :email)");
 
-			$stmt->bindParam(":name", $name);
-			$stmt->bindParam(":passwd", $hash);
-			$stmt->bindParam(":email", $email);
+				$stmt->bindParam(":name", $name);
+				$stmt->bindParam(":passwd", $hash);
+				$stmt->bindParam(":email", $email);
 
-			if($stmt->execute()) {
-				return false;
-			} else {
-				return 	"SQL Error <br />" . 
-						$stmt->queryString . "<br />" .
-						$stmt->errorInfo()[2];
-			}
+				if($stmt->execute()) {
+					return false;
+				} else {
+					return 	"SQL Error <br />" . 
+							$stmt->queryString . "<br />" .
+							$stmt->errorInfo()[2];
+				}
+			} catch (PDOException $e) {
+		        if ($e->errorInfo[1] == 1062) {
+		            return "User name already existing!";
+		        } else {
+		            throw $e;
+		        }
+		    }
 		}
 
 		function loginUser($name, $passwd)

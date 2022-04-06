@@ -14,7 +14,7 @@
 		if(!empty($_SESSION['userid']))
 			echo "<a href='logout.php'>Logout</a>";
 		else{
-			echo "<a href='register.php'>Regestrierung</a><br>";
+			echo "<a href='register.php'>Registrierung</a><br>";
 			echo "<a href='login.php'>Login</a>";
 		}
 	 ?>

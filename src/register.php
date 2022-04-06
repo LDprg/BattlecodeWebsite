@@ -9,7 +9,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Regestrierung</title>
+	<title>Registrierung</title>
 </head>
 <body>
 	<?php 
