@@ -12,14 +12,17 @@ services:
     container_name: db
     image: mysql
     restart: always
+    volumes:
+      - ./sql-scripts:/docker-entrypoint-initdb.d
     environment:
-        MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
+        MYSQL_ROOT_PASSWORD: Y8bcx8kDhSKgM86S
         MYSQL_DATABASE: MYSQL_DATABASE
-        MYSQL_USER: MYSQL_USER
-        MYSQL_PASSWORD: MYSQL_PASSWORD
+        MYSQL_USER: user
+        MYSQL_PASSWORD: 9TF5KKZSu9kDQbxj
     ports:
         - "9906:3306"
   phpmyadmin:
+    container_name: phpmyadmin
     image: phpmyadmin/phpmyadmin
     ports:
         - '8080:80'

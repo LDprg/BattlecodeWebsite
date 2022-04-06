@@ -1,22 +1,22 @@
-<?php
-class DB {
-		private static $_db_username = "MYSQL_USER";
-		private static $_db_password = "MYSQL_PASSWORD";
-		private static $_db_host = "db";
-		private static $_db_name = "MYSQL_DATABASE";
-		private static $_db;
-
-
-		function __construct() {
-			try {
-			self::$_db = new PDO("mysql:host=" . self::$_db_host . ";dbname=" . self::$_db_name,  self::$_db_username , self::$_db_password);
-			} catch(PDOException $e) {
-				echo "Datenbankverbindung fehlgeschlagen!<br>";
-				die($e);
-			}
+<?php 
+	session_start();
+ ?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Main</title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<?php 
+		if(!empty($_SESSION['userid']))
+			echo "<a href='logout.php'>Logout</a>";
+		else{
+			echo "<a href='register.php'>Regestrierung</a><br>";
+			echo "<a href='login.php'>Login</a>";
 		}
-
-	}
-	$db = new DB();
-	echo("Works");
-?> 
+	 ?>
+</body>
+</html>
