@@ -16,7 +16,7 @@ if (!defined('IN_SITE')) { echo("Zugriff verweigert: <a href='index.php?section=
 	 * * * * * * * * * * * * * * * * * * * * * * * * */
 	
 
-	$page = $db->getPage($section, $lang);
+	$page = $db->getPage($section);
 	
 	if ($page == false) {
 		 echo $ERROR404;

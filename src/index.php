@@ -26,12 +26,10 @@
 	require_once 'mysql.php';
 	require_once 'staticVar.php';
 	$db = new DB();	
-
-	$meta = $db->getMeta($section, $lang);
  ?>
 
 <!DOCTYPE html>
-<html lang="<?php echo $meta->lang; ?>">
+<html lang="<?php echo $LANG ?>">
 	<head>
 		<title><?php echo $TITLE; ?></title>
 
@@ -49,10 +47,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<!-- META by each Side -->
-		<meta name="language" content=<?php echo "\"" . $meta->lang . "\""; ?>>
-		<meta name="keywords" content=<?php echo "\"" . $meta->keywords . "\""; ?>/>
-		<meta name="description" content=<?php echo "\"" . $meta->description . "\""; ?>/>
-		<meta name="revised" content=<?php echo "\"" . $meta->updated . "\""; ?> />
+		<meta name="language" content=<?php echo "\"" . $LANG . "\""; ?>>
+		<meta name="keywords" content=<?php echo "\"" . $KEYWORDS . "\""; ?>/>
+		<meta name="description" content=<?php echo "\"" . $DESCRIPTION . "\""; ?>/>
 	</head>
 	<body>
 		<div id="wrapper">

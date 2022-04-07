@@ -12,7 +12,7 @@ if (!defined('IN_SITE')) { echo("Zugriff verweigert: <a href='index.php?section=
 	 *												 *
 	 * * * * * * * * * * * * * * * * * * * * * * * * */
 
-
+	require_once 'staticVar.php';
  
 	class DB {
 		/* Init */
@@ -31,116 +31,10 @@ if (!defined('IN_SITE')) { echo("Zugriff verweigert: <a href='index.php?section=
 				}
 			}
 		/* Init ENDE */
-		/* CMS - main pgaes */
-			private function getPageFromDatabase($section, $lang)
+		/* CMS - main pages */
+			function getPage($section)
 			{
-				$stmt = self::$_db->prepare("SELECT * FROM `pages` WHERE `name`=:name AND `lang`=:lang");
-				$stmt->bindParam(":name", $section);
-				$stmt->bindParam(":lang", $lang);
-
-				$stmt->execute();
-				$inhalt = $stmt->fetch(PDO::FETCH_OBJ);
-				if($stmt->rowCount() == 1) {
-					return $inhalt;
-				} else {
-					$stmt = self::$_db->prepare("SELECT * FROM `pages` WHERE `name`=:name AND `lang`='en'");
-					$stmt->bindParam(":name", $section);
-					
-
-					$stmt->execute();
-					$inhalt = $stmt->fetch(PDO::FETCH_OBJ);	
-					if($stmt->rowCount() == 1) {
-						return $inhalt;
-					} else {
-						$stmt = self::$_db->prepare("SELECT * FROM `pages` WHERE `name`=:name ORDER BY id ASC LIMIT 1");
-						$stmt->bindParam(":name", $section);
-
-						$stmt->execute();
-						$inhalt = $stmt->fetch(PDO::FETCH_OBJ);	
-						if($stmt->rowCount() == 1) {
-							return $inhalt;
-						} else {
-							return false;
-						}
-					}
-				}
-			}
-			function getPage($section, $lang)
-			{
-				$inhalt = $this->getPageFromDatabase($section, $lang);
-				if ($inhalt == false) {
-					return false;
-				}
-				else
-				{
-					return $inhalt->inhalt;
-				}
-			}
-
-			function getMeta($section, $lang)
-			{
-				$meta = $this->getPageFromDatabase($section, $lang);
-				if ($meta == false) {
-					return false;
-				}
-				else
-				{
-					return $meta;
-				}
-			}
-			function getAllPages(){
-				$stmt = self::$_db->prepare("SELECT * FROM `pages` ORDER BY name ASC");
-				$stmt->execute();
-				return $stmt->fetchAll(PDO::FETCH_ASSOC);
-			}
-
-			function newPage($name, $lang, $description, $keywords, $anmerkungen, $page) {
-				$stmt = self::$_db->prepare("INSERT INTO `pages`(`name`, `lang`, `description`, `keywords`, `inhalt`, `anmerkungen`) VALUES (:name,:lang,:description,:keywords,:inhalt,:anmerkungen)");
-				$stmt->bindParam(":name", $name);
-				$stmt->bindParam(":lang", $lang );
-				$stmt->bindParam(":description", $description );
-				$stmt->bindParam(":keywords", $keywords );
-				$stmt->bindParam(":inhalt", $page);
-				$stmt->bindParam(":anmerkungen", $anmerkungen );
-				if ($stmt->execute()) {
-					return true;
-				}  //else
-				return false;
-			}
-			function saveEditPage($id, $name, $lang, $description, $keywords, $anmerkungen, $page) {
-				$stmt = self::$_db->prepare("UPDATE `pages` SET `name`=:name,`lang`=:lang,`description`=:description,`keywords`=:keywords,`inhalt`=:inhalt,`anmerkungen`=:anmerkungen WHERE `id`=:id");
-				$stmt->bindParam(":id", $id);
-				$stmt->bindParam(":name", $name);
-				$stmt->bindParam(":lang", $lang );
-				$stmt->bindParam(":description", $description );
-				$stmt->bindParam(":keywords", $keywords );
-				$stmt->bindParam(":inhalt", $page);
-				$stmt->bindParam(":anmerkungen", $anmerkungen );
-				if ($stmt->execute()) {
-					return true;
-				}  //else
-				return false;
-			}
-			function getPageByID($page) {
-				$stmt = self::$_db->prepare("SELECT * FROM `pages` WHERE `id`=:id");
-				$stmt->bindParam(":id", $page);
-
-				$stmt->execute();
-				$inhalt = $stmt->fetch(PDO::FETCH_OBJ);
-				if($stmt->rowCount() == 1) {
-					return $inhalt;
-				} else{
-					return false;
-				}
-
-			}
-			function deletePage($id) {
-				$stmt = self::$_db->prepare("DELETE FROM `pages` WHERE id=:id");
-				$stmt->bindParam(":id", $id);
-				if ($stmt->execute()) {
-					return true;
-				}  //else
-				return false;
+				return $PAGES[$section];
 			}
 		/* CMS ENDE  */
 		/* USER::ADMIN*/
@@ -160,16 +54,16 @@ if (!defined('IN_SITE')) { echo("Zugriff verweigert: <a href='index.php?section=
 				}
 				function adminLogin($name, $password)
 				{
-					$stmt = self::$_db->prepare("SELECT id FROM adminAccounts WHERE email_SHA=:adminmail AND password=:pw");
-					$stmt->bindParam(":adminmail", $name);
+					$stmt = self::$_db->prepare("SELECT id FROM adminAccounts WHERE email=:email AND password=:pw");
+					$stmt->bindParam(":email", $name);
 					$stmt->bindParam(":pw", $password);
 					$stmt->execute();
 			 
 					if($stmt->rowCount() === 1) {
-						$stmt = self::$_db->prepare("UPDATE adminAccounts SET session=:sid WHERE email_SHA=:adminmail AND password=:pw");
+						$stmt = self::$_db->prepare("UPDATE adminAccounts SET session=:sid WHERE email=:email AND password=:pw");
 			            $sid = session_id();
 						$stmt->bindParam(":sid", $sid);
-						$stmt->bindParam(":adminmail", $name);
+						$stmt->bindParam(":email", $name);
 						$stmt->bindParam(":pw", $password);
 						$stmt->execute();
 						

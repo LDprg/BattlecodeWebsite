@@ -13,6 +13,9 @@
 
 //Pagetitle
 $TITLE="LD-programs";
+$LANG="en";
+$KEYWORDS="";
+$DESCRIPTION="";
 //Pagefooter
 
 //page not found ERROR 404
@@ -20,11 +23,14 @@ $ERROR404 = "<center><h1>ERROR 404 - page not found</h1><br><a href=\"./index.ph
 //START MENU LIST
 $MENU = array(	array("HOME", "home"),
 				array("ABOUT US", "about"),
-				array("CONTACT US", "contact-hire#contact"),
-				array("hire us", "contact-hire"),
-				array("exSamples", "exsamples")
+				array("CONTACT US", "contact"),
 			);
-				// + lang select + serch?
+
+$PAGES = array(	"home" => "./pages/home.php",
+				"about" => "./pages/about.php",
+				"contact" => "./pages/contact.php",
+				"impressum" => "./pages/impressum.php",
+			);
 //END MENU LIST
 
 

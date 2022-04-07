@@ -46,7 +46,7 @@
 						" . $page['keywords'] . "
 					</td>
 					<td>
-						" . $page['lastEdit'] . "
+						" . $page['updated'] . "
 					</td>
 					<td>
 						" . $page['description'] . "
