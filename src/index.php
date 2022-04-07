@@ -10,34 +10,25 @@
 		$section = "home";
 	}
 
-	if(isset($_GET["lang"]))
-	{
-		$lang = $_GET["lang"];
-		setcookie("lang",$lang,time()+100000000);
-
-	}
-	elseif (isset($_COOKIE["lang"])) {
-		$lang = $_COOKIE["lang"];
-	} else {
-		$lang = 'en';
-	}
-
-	define('IN_SITE', true);
 	require_once 'mysql.php';
 	require_once 'staticVar.php';
 	$db = new DB();	
+
+	/* * * * * * * * * * * * * * * * * * * * * * * * * 
+	 *												 *	
+	 *	Copyright: 	Daniel Mikulas, 2019			 *
+	 *	Contact: 	daniel04mik@gmail.com 			 *
+	 *												 *
+	 *	Note: 		Modified version 	 			 *
+	 *												 *
+	 * * * * * * * * * * * * * * * * * * * * * * * * */
  ?>
 
 <!DOCTYPE html>
 <html lang="<?php echo $LANG ?>">
 	<head>
 		<title><?php echo $TITLE; ?></title>
-
-		<link rel="stylesheet" type="text/css" href="style.css" />
-		<script type="text/javascript" src="cookie-settings.js"></script>
-		<script type="text/javascript" src="https://s3.eu-central-1.amazonaws.com/website-tutor/cookiehinweis/script.js"></script>
-		<script type="text/javascript" src="jquery-3.4.1.min.js"></script>
-
+		
 		<!--META-->
 		<meta charset="UTF-8">
 		<meta name="revisit-after" content="7 days">
@@ -47,54 +38,31 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<!-- META by each Side -->
-		<meta name="language" content=<?php echo "\"" . $LANG . "\""; ?>>
-		<meta name="keywords" content=<?php echo "\"" . $KEYWORDS . "\""; ?>/>
-		<meta name="description" content=<?php echo "\"" . $DESCRIPTION . "\""; ?>/>
+		<meta name="language" content="<?php echo $LANG; ?>">
+		<meta name="keywords" content="<?php echo $KEYWORDS; ?>"/>
+		<meta name="description" content="<?php echo $DESCRIPTION; ?>"/>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+		<!-- Bootstrap -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+		<link href="style.css" rel="stylesheet">
 	</head>
 	<body>
-		<div id="wrapper">
-			<header>
-				
-			</header>
-			<div id="place-menu">
-				<nav class="menu">
-					<?php include 'nav.php'; ?>
-					<div id="soc-in-menu">
-						<a href="https://github.com/ld-programs/" target="_blank" rel="noopener">
-							<img src="./images/github.png" width="22px" height="22px"></a>
-						<a href="https://www.patreon.com/LD_programs" target="_blank" rel="noopener">
-							<img src="./images/Patreon.png" width="22px" height="22px"></a>
-						<a href="https://discord.gg/6rgavKU" target="_blank" rel="noopener">
-							<img src="./images/discord.png" width="22px" height="22px"></a>
-						<a href="mailto:ld.programs@gmx.at" target="_blank" rel="noopener">
-							<img src="./images/mail.png" width="22px" height="22px"></a>
-						&nbsp;
-
-					</div>
-				</nav>
-
-
+		<main>
+			<?php 
+				include "sidebar.php";
+			?>
+			<div class="b-divider"></div>
+			<div class="container-fluid">
+				<?php 
+					include "main.php";
+				?>
 			</div>
-			<main>
-				<?php include("mainpage.php"); ?>
-			</main>
-			
-			<footer>
-				<?php include 'footer.php'; ?>
+		</main>
 
-			</footer>
-		</div>
-
-		<script type="text/javascript">
-			var num = 200 + 20; //number of pixels before modifying styles, header + 20 px margin top
-
-			$(window).bind('scroll', function () {
-			    if ($(window).scrollTop() > num) {
-			        $('.menu').addClass('fixed');
-			    } else {
-			        $('.menu').removeClass('fixed');
-			    }
-			});
-		</script>
+		<!-- Bootstrap -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	</body>
 </html>
