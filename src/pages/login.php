@@ -35,12 +35,9 @@
 	      <label for="floatingPassword">Password</label>
 	    </div>
 
-	    <div class="checkbox mb-3">
-	      <!-- <label>
-	        <input type="checkbox" value="remember-me"> Remember me
-	      </label> -->
+	    <div class="mb-3">
 	    	<label>
-	    		New?<a href="<?php echo loadPageUrl("register"); ?>" class="btn btn-link">Create an account</a>
+	    		New?&ensp;<a href="<?php echo loadPageUrl("register"); ?>">Create an account</a>
 	    	</label>  	
 	    </div>
 	    

@@ -10,16 +10,26 @@
 	<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
 		<span class="fs-4"><?php echo $TITLE; ?></span>
 	</a>
-	<hr>
 	<ul class="nav nav-pills flex-column mb-auto">
-		<?php for ($i=0; $i < count($MENU); $i++) { ?>
+		<li class="border-top my-3"></li>
+		<?php 
+			for ($i=0; $i < count($MENU); $i++) { 
+				if ($MENU[$i][0]){
+		?>
 			<li>
 				<a href="<?php echo loadPageURL($MENU[$i][1]); ?>" 
 					class="nav-link <?php echo $section == $MENU[$i][1] ? "active" : "text-white"; ?>">
+					<i class="bi bi-<?php echo $MENU[$i][2]; ?>"></i>
 					<?php echo $MENU[$i][0]; ?>
 				</a>
 			</li>
-		<?php } ?>
+		<?php 
+				}
+				else{
+					echo "<hr>";
+				}
+			}
+		?>
 	</ul>
 	<hr>
 	<div class="dropdown">

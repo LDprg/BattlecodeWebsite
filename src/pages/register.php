@@ -42,7 +42,7 @@
 
 	    <div class="mb-3">
 	    	<label>
-	    		Already have an Account?<a href="<?php echo loadPageUrl("login"); ?>" class="btn btn-link">Login</a>
+	    		Already have an Account?&ensp;<a href="<?php echo loadPageUrl("login"); ?>">Login</a>
 	    	</label>  	
 	    </div>
 
