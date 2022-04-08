@@ -10,7 +10,11 @@
 		array("Home", "home", "house-door"),
 		array("Getting Started", "getting_started", "sun"),
 		array("Resources", "resources", "clipboard2-data"),
-		array(""),
+	);
+
+	$LOGINMENU = array(	
+		array("Upload", "upload", "upload"),
+		array("Test", "test", "wrench"),
 	);
 
 	$PAGES = array(	
@@ -21,6 +25,10 @@
 		"login" => "login.php",
 		"logout" => "logout.php",
 		"register" => "register.php",
+
+		"upload" => "upload.php",
+
+		"test" => "test.php",
 	);
 
 	function loadPageURL($page){
@@ -34,5 +42,16 @@
 		echo '<noscript>';
         echo '<meta http-equiv="refresh" content="0;url=\''.$filename.'\'" />';
         echo '</noscript>';
+	}
+
+	function humanFileSize($size,$unit="") {
+		if( (!$unit && $size >= 1<<30) || $unit == " GB")
+			return number_format($size/(1<<30),2)." GB";
+		if( (!$unit && $size >= 1<<20) || $unit == " MB")
+			return number_format($size/(1<<20),2)." MB";
+		if( (!$unit && $size >= 1<<10) || $unit == " KB")
+			return number_format($size/(1<<10),2)." KB";
+		else
+			return number_format($size)." bytes";
 	}
 ?>

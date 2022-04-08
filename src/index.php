@@ -14,6 +14,14 @@
 	require_once 'staticVar.php';
 	$db = new DB();	
 
+	if(!$db->isUserLogin()){
+		for ($i=0; $i < count($LOGINMENU); $i++) {
+			if($LOGINMENU[$i][1] == $section) {
+				$section = "login";
+			}
+		}
+	}
+
 	if (array_key_exists($section, $PAGES))
 		$page = $PAGES[$section];
 	else
@@ -50,11 +58,17 @@
 		<meta name="keywords" content="<?php echo $KEYWORDS; ?>"/>
 		<meta name="description" content="<?php echo $DESCRIPTION; ?>"/>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+
+		<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/js/plugins/piexif.min.js" type="text/javascript"></script>
+		<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/js/plugins/sortable.min.js" type="text/javascript"></script>
+		<script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/js/fileinput.min.js"></script>
 
 		<!-- Bootstrap -->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+		<link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
 
 		<link href="style.css" rel="stylesheet">
 	</head>

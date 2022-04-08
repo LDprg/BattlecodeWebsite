@@ -6,7 +6,7 @@
 		private static $_db_name = "MYSQL_DATABASE";
 		private static $_db;
 
-		function __construct() {
+		public function __construct() {
 			try {
 				self::$_db = new PDO("mysql:host=" . self::$_db_host . ";dbname=" . self::$_db_name,  self::$_db_username , self::$_db_password);
 			} catch(PDOException $e) {
@@ -15,7 +15,7 @@
 			}
 		}
 
-		function createUser($email, $name, $passwd)
+		public function createUser($email, $name, $passwd)
 		{
 			try{
 				if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
@@ -24,15 +24,19 @@
 
 				$hash = password_hash($passwd, PASSWORD_DEFAULT);
 				$session = session_id();
+				$path = "/home/work/code/" . $name . "_" . $email . "/"; 
 
-				$stmt = self::$_db->prepare("INSERT INTO users(name, passwd, email, session) VALUES (:name, :passwd, :email, :session)");
+				$stmt = self::$_db->prepare("INSERT INTO users(name, passwd, email, session, path) VALUES (:name, :passwd, :email, :session, :path)");
 
 				$stmt->bindParam(":name", $name);
 				$stmt->bindParam(":passwd", $hash);
 				$stmt->bindParam(":email", $email);
 				$stmt->bindParam(":session", $session);
+				$stmt->bindParam(":path", $path);
 
 				if($stmt->execute()) {
+					if (!file_exists($path))
+						mkdir($path);
 					return false;
 				} else {
 					return 	"SQL Error <br />" . 
@@ -48,7 +52,7 @@
 		    }
 		}
 
-		function loginUser($email, $passwd)
+		public function loginUser($email, $passwd)
 		{
 			$stmt = self::$_db->prepare("SELECT * FROM users WHERE email = :email");
 
@@ -69,14 +73,14 @@
 			}
 		}
 
-		function logoutUser()
+		public function logoutUser()
 		{
 			if($_SESSION['session']){
 				$_SESSION['session'] = NULL;
 			}
 		}
 		
-		function isUserLogin(){
+		public function isUserLogin(){
 			$stmt = self::$_db->prepare("SELECT ID FROM users WHERE session=:sid");
 		    $stmt->bindParam(":sid", $_SESSION['session']);
 			$stmt->execute();
@@ -88,16 +92,39 @@
 			}
 		}
 
-		function getUserLogin(){
-			$stmt = self::$_db->prepare("SELECT * FROM users WHERE session=:sid");
-			$sid = session_id();
-		    $stmt->bindParam(":sid", $sid);
-			$stmt->execute();
+		public function getUserLogin(){
+			if($this->isUserLogin()){
+				$stmt = self::$_db->prepare("SELECT * FROM users WHERE session=:sid");
+				$sid = session_id();
+			    $stmt->bindParam(":sid", $sid);
+				$stmt->execute();
 
-			if($stmt->rowCount() === 1) {
-				return $stmt->fetch();
-			} else {
-				return false;	
+				if($stmt->rowCount() === 1) {
+					return $stmt->fetch();
+				} else {
+					return false;	
+				}
+			}
+			else
+				return false;
+		}
+
+		public function getUploads($uid)
+		{		
+			$stmt = self::$_db->prepare("SELECT * FROM uploads WHERE userid=:uid");		
+			$stmt->bindParam(":uid", $uid);
+			$stmt->execute();
+			return $stmt->fetchAll();
+		}
+
+		public function createUpload($filename)
+		{		
+			if($this->isUserLogin()){
+				$stmt = self::$_db->prepare("INSERT INTO uploads(userid, filename) VALUES (:uid, :filename)");		
+				$stmt->bindParam(":uid", $this->getUserLogin()['id']);
+				$stmt->bindParam(":filename", $filename);
+				$stmt->execute();
+				return $stmt->fetchAll();
 			}
 		}
   	}

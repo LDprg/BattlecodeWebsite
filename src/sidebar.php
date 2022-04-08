@@ -22,6 +22,27 @@
 				}
 			}
 		?>
+		<hr>
+		<?php 
+			if($db->isUserLogin()){
+				for ($i=0; $i < count($LOGINMENU); $i++) { 
+					if ($LOGINMENU[$i][0]){
+		?>
+			<li>
+				<a href="<?php echo loadPageURL($LOGINMENU[$i][1]); ?>" 
+					class="nav-link <?php echo $section == $LOGINMENU[$i][1] ? "active" : "text-white"; ?>">
+					<i class="bi bi-<?php echo $LOGINMENU[$i][2]; ?>"></i>
+					<?php echo $LOGINMENU[$i][0]; ?>
+				</a>
+			</li>
+		<?php 
+					}
+					else{
+					echo "<hr>";
+					}
+				}
+			}
+		?>
 	</ul>
 	<hr>
 	<div class="dropdown">
