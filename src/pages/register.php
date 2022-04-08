@@ -1,16 +1,5 @@
-<?php 
-	$error = "";
- ?>
 <div class="form-signin text-center">
 	<?php 
-		if(isset($_POST['submit'])) {
-			$name = $_POST['name'];
-			$email = $_POST['email'];
-    		$passwd = $_POST['passwd'];
-
-    		$error = $db->createUser($email, $name, $passwd);
-    	}
-
     	if(!isset($_POST['submit']) || $error){
 
     		if($error){

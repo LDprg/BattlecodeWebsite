@@ -14,6 +14,11 @@
 	require_once 'staticVar.php';
 	$db = new DB();	
 
+	$page = $PAGES[$section];
+
+	if(file_exists("./prepages/".$page))
+		include "./prepages/".$page;
+
 	/* * * * * * * * * * * * * * * * * * * * * * * * * 
 	 *												 *	
 	 *	Copyright: 	Daniel Mikulas, 2019			 *
@@ -57,8 +62,13 @@
 			?>
 			<div class="b-divider"></div>
 			<div class="container-fluid overflow-auto p-3" style="background-color: #f5f5f5;">
-				<?php 
-					include "main.php";
+				<?php 	
+					if ($page == false) {
+						 echo $ERROR404;
+					} else {
+						if(file_exists("./pages/".$page))
+							include "./pages/".$page;
+					}
 				?>
 			</div>
 		</main>

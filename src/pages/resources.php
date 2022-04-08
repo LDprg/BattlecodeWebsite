@@ -5,7 +5,7 @@
          <div>
             <h2>Game Spezifications</h2>
             <p>The spezification for the Game. Very High level no programming details.</p>
-            <a href="https://play.battlecode.org/specs/2022/specs.md.html" class="btn btn-primary" target="_blank">Vist the Offical Site!</a>
+            <a href="https://play.battlecode.org/specs/2022/specs.md.html" class="btn btn-primary" target="_blank">Vist the Game Spezifications!</a>
          </div>
       </div>
 
@@ -13,7 +13,7 @@
          <div>
             <h2>Java Documentations</h2>
             <p>The documentation for programming.</p>
-            <a href="https://play.battlecode.org/javadocs/2022/index.html" class="btn btn-primary" target="_blank">Vist Offical Site for Installation Guide!</a>
+            <a href="https://play.battlecode.org/javadocs/2022/index.html" class="btn btn-primary" target="_blank">Vist the Java Documentations!</a>
          </div>
       </div>
    </div>

@@ -1,11 +1,3 @@
-<?php
-	/*echo "&nbsp;";
-	for ($i=0; $i < count($MENU); $i++) {
-		echo "<a class='navlink' href=index.php?section=" . $MENU[$i][1] . "> " . $MENU[$i][0] . " </a>";
-		if($i < count($MENU)-1)
-			echo "|";
-	}*/
-?>
 <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
 	<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
 		<span class="fs-4"><?php echo $TITLE; ?></span>
@@ -48,9 +40,12 @@
 		<?php 
 			} else {
 		 ?>
-		<a href="<?php echo loadPageURL("login"); ?>" class="d-flex align-items-center text-white text-decoration-none" aria-expanded="false">
-			<strong>Login</strong>
-		</a>
+			<a href="<?php echo loadPageURL("login"); ?>" class="d-flex align-items-center text-white text-decoration-none" aria-expanded="false">
+				<strong>Login</strong>
+			</a>
+			<a href="<?php echo loadPageURL("register"); ?>" class="d-flex align-items-center text-white text-decoration-none" aria-expanded="false">
+				<strong>Register</strong>
+			</a>
 		<?php 
 			}
 		 ?>

@@ -1,17 +1,6 @@
-<?php 
-	$error = "";
- ?>
 <div class="form-signin text-center">
 	<?php 
-		if(isset($_POST['submit'])) {
-			$email = $_POST['email'];
-    		$passwd = $_POST['passwd'];
-
-    		$error = $db->loginUser($email, $passwd);
-    	}
-
-    	if(!isset($_POST['submit']) || $error){
-
+    	if(!isset($submit) || $error){
     		if($error){
 	?>
 			<div class="alert alert-danger alert-dismissible fade show">
@@ -46,11 +35,7 @@
 	<?php 
 		}
 		
-		if(isset($_POST['submit']) && !$error){
-			if(!$_SESSION['session']){
-				$_POST = array();
-				reloadPage();
-			}
+		if(isset($submit) && !$error){
 	?>
 			<div class="alert alert-success">
 			  <strong>Success!</strong> Login completed.

@@ -14,13 +14,13 @@
 	);
 
 	$PAGES = array(	
-		"home" => "./pages/home.php",
-		"getting_started" => "./pages/getting_started.php",
-		"resources" => "./pages/resources.php",
+		"home" => "home.php",
+		"getting_started" => "getting_started.php",
+		"resources" => "resources.php",
 
-		"login" => "./pages/login.php",
-		"logout" => "./pages/logout.php",
-		"register" => "./pages/register.php",
+		"login" => "login.php",
+		"logout" => "logout.php",
+		"register" => "register.php",
 	);
 
 	function loadPageURL($page){

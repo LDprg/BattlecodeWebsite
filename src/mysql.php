@@ -73,7 +73,6 @@
 		{
 			if($_SESSION['session']){
 				$_SESSION['session'] = NULL;
-				reloadPage();
 			}
 		}
 		
