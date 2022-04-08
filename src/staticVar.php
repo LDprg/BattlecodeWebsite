@@ -1,10 +1,10 @@
 <?php
 	$TITLE="Battlecode 22 Challenges";
 	$LANG="en";
-	$KEYWORDS="";
-	$DESCRIPTION="";
+	$KEYWORDS="Battlecode, Challenges";
+	$DESCRIPTION="A Website for makeing Battlecode 22 Challenges!";
 
-	$ERROR404 = "<center><h1>ERROR 404 - page not found</h1><br><a href=\"./index.php\"><h2>Back to main-page</h2><img src=\"./images/404.png\" alt=\"Bild: Error 404\"></center></a>";
+	$ERROR404 = "<center><h1>ERROR 404 - Page not found</h1><br><a href=\".\"><h2>Back to Home</h2><img src=\"./images/404.png\" alt=\"Bild: Error 404\"></center></a>";
 
 	$MENU = array(	
 		array("Home", "home", "house-door"),

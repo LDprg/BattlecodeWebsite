@@ -14,9 +14,12 @@
 	require_once 'staticVar.php';
 	$db = new DB();	
 
-	$page = $PAGES[$section];
+	if (array_key_exists($section, $PAGES))
+		$page = $PAGES[$section];
+	else
+		$page = NULL;
 
-	if(file_exists("./prepages/".$page))
+	if(file_exists("./prepages/".$page) && $page)
 		include "./prepages/".$page;
 
 	/* * * * * * * * * * * * * * * * * * * * * * * * * 
