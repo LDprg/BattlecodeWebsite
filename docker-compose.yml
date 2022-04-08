@@ -1,4 +1,4 @@
-version: '4.6'
+version: '3.7'
 services:
   php-apache-environment:
     container_name: php-apache
@@ -7,7 +7,7 @@ services:
       - ./src:/var/www/html/
       - ./work:/home/work/
     ports:
-      - 8000:80
+      - '8000:80'
   db:
     container_name: db
     image: mysql
@@ -20,7 +20,7 @@ services:
         MYSQL_USER: user
         MYSQL_PASSWORD: 9TF5KKZSu9kDQbxj
     ports:
-        - "9906:3306"
+        - '9906:3306'
   phpmyadmin:
     container_name: phpmyadmin
     image: phpmyadmin/phpmyadmin

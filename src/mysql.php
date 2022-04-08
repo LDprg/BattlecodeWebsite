@@ -15,7 +15,7 @@
 			}
 		}
 
-		function createUser($name, $passwd, $email)
+		function createUser($email, $name, $passwd)
 		{
 			try{
 				if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
@@ -23,12 +23,14 @@
 				}
 
 				$hash = password_hash($passwd, PASSWORD_DEFAULT);
+				$session = session_id();
 
-				$stmt = self::$_db->prepare("INSERT INTO users(NAME, PASSWD, EMAIL) VALUES (:name, :passwd, :email)");
+				$stmt = self::$_db->prepare("INSERT INTO users(name, passwd, email, session) VALUES (:name, :passwd, :email, :session)");
 
 				$stmt->bindParam(":name", $name);
 				$stmt->bindParam(":passwd", $hash);
 				$stmt->bindParam(":email", $email);
+				$stmt->bindParam(":session", $session);
 
 				if($stmt->execute()) {
 					return false;
@@ -46,16 +48,16 @@
 		    }
 		}
 
-		function loginUser($name, $passwd)
+		function loginUser($email, $passwd)
 		{
-			$stmt = self::$_db->prepare("SELECT * FROM users WHERE name = :name");
+			$stmt = self::$_db->prepare("SELECT * FROM users WHERE email = :email");
 
-			$stmt->bindParam(":name", $name);
+			$stmt->bindParam(":email", $email);
 
 			if($stmt->execute()) {
 				$user = $stmt->fetch();
-				if(!empty($user) && password_verify($passwd, $user['PASSWD'])){
-					$_SESSION['userid'] = $user['ID'];
+				if(!empty($user) && password_verify($passwd, $user['passwd'])){
+					$_SESSION['session'] = $user['session'];
 					return false;
 				} else {
 					return "Password or User wrong!";
@@ -66,6 +68,38 @@
 						$stmt->errorInfo()[2];
 			}
 		}
+
+		function logoutUser()
+		{
+			if($_SESSION['session']){
+				$_SESSION['session'] = NULL;
+				reloadPage();
+			}
+		}
 		
+		function isUserLogin(){
+			$stmt = self::$_db->prepare("SELECT ID FROM users WHERE session=:sid");
+		    $stmt->bindParam(":sid", $_SESSION['session']);
+			$stmt->execute();
+
+			if($stmt->rowCount() === 1) {
+				return true;
+			} else {
+				return false;	
+			}
+		}
+
+		function getUserLogin(){
+			$stmt = self::$_db->prepare("SELECT * FROM users WHERE session=:sid");
+			$sid = session_id();
+		    $stmt->bindParam(":sid", $sid);
+			$stmt->execute();
+
+			if($stmt->rowCount() === 1) {
+				return $stmt->fetch();
+			} else {
+				return false;	
+			}
+		}
   	}
 ?>

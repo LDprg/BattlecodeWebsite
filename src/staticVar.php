@@ -16,5 +16,22 @@
 		"home" => "./pages/home.php",
 		"about" => "./pages/about.php",
 		"contact" => "./pages/contact.php",
+
+		"login" => "./pages/login.php",
+		"logout" => "./pages/logout.php",
+		"register" => "./pages/register.php",
 	);
+
+	function loadPageURL($page){
+		return "index.php?section=" . $page;
+	}
+
+	function reloadPage(){
+		echo '<script type="text/javascript">';
+		echo 'location.reload();';
+		echo '</script>';
+		echo '<noscript>';
+        echo '<meta http-equiv="refresh" content="0;url=\''.$filename.'\'" />';
+        echo '</noscript>';
+	}
 ?>

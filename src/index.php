@@ -35,7 +35,7 @@
 		<meta name="copyright"content="LD-programs">
 		<meta name="reply-to" content="ld.programs@gmx.at">
 		<meta name="robots" content="index,follow" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 		<!-- META by each Side -->
 		<meta name="language" content="<?php echo $LANG; ?>">
@@ -55,7 +55,7 @@
 				include "sidebar.php";
 			?>
 			<div class="b-divider"></div>
-			<div class="container-fluid">
+			<div class="container-fluid overflow-auto p-3" style="background-color: #f5f5f5;">
 				<?php 
 					include "main.php";
 				?>
